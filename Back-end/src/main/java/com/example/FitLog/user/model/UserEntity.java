@@ -1,4 +1,4 @@
-package user.model;
+package com.example.FitLog.user.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

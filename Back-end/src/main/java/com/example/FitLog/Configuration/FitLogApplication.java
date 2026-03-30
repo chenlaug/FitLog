@@ -1,14 +1,14 @@
-package com.example.FitLog;
+package com.example.FitLog.Configuration;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EntityScan("user.model")
-@EnableJpaRepositories(basePackages = "user.persistence")
+@EntityScan("com.example.FitLog.user.model")
+@EnableJpaRepositories(basePackages = "com.example.FitLog.user.persistence")
 @SpringBootApplication(scanBasePackages= {
-		"user","com.example.FitLog"
+		"com.example.FitLog","com.example.FitLog"
 })
 public class FitLogApplication {
 

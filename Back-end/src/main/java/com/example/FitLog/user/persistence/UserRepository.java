@@ -1,8 +1,8 @@
-package user.persistence;
+package com.example.FitLog.user.persistence;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import user.model.UserEntity;
+import com.example.FitLog.user.model.UserEntity;
 
 import java.util.UUID;
 
