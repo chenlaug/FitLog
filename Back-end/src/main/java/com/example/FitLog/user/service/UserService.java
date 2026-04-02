@@ -16,13 +16,15 @@ public class UserService {
         return "Hello World!";
     }
 
-    public String createUser(String name) throws UserCreationException {
-        System.out.println("Creating user: " + name);
+    public UserEntity createUser(String name,String email, String password) throws UserCreationException {
         UserEntity user = UserEntity
                 .builder()
-                .name(name).build();
+                .name(name)
+                .email(email)
+                .password(password)
+                .build();
 
         userRepository.save(user);
-        return  user.getName();
+        return  user;
     }
 }
