@@ -1,19 +1,21 @@
 package com.example.FitLog.user.service;
 
 import com.example.FitLog.user.model.exception.UserCreationException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.FitLog.user.persistence.UserRepository;
 import com.example.FitLog.user.model.UserEntity;
 
+@Slf4j
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final PasswordEncoder passwordEncoder;
 
-    public String sayHello() {
-        return "Hello World!";
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserEntity createUser(String name,String email, String password) throws UserCreationException {
@@ -21,7 +23,7 @@ public class UserService {
                 .builder()
                 .name(name)
                 .email(email)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .build();
 
         userRepository.save(user);
