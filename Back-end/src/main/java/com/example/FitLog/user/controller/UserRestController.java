@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import com.example.FitLog.user.service.UserService;
 
 @RestController
+@RequestMapping("/user")
 public class UserRestController {
     private final UserService userService;
     public UserRestController(UserService userService) {
         this.userService = userService;
     }
 
-    @PostMapping("user/create")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public String create(@Valid @RequestBody UserDTO.PostInput input) throws UserCreationException {
         UserEntity newUser = userService.createUser(input.getName(),input.getEmail(),input.getPassword());
