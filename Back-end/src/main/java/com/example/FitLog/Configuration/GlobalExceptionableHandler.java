@@ -1,6 +1,6 @@
 package com.example.FitLog.Configuration;
 
-import com.example.FitLog.user.model.exception.UserCreationException;
+import com.example.FitLog.user.model.exception.UserException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -27,12 +27,14 @@ public class GlobalExceptionableHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pm);
     }
 
-    @ExceptionHandler(UserCreationException.class)
-    public ResponseEntity<ProblemDetail> cathUserCreation(UserCreationException ex) {
-        ProblemDetail pm = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pm);
+    // User exception — gère tous les cas via le statut intégré dans UserException
+    @ExceptionHandler(UserException.class)
+    public ResponseEntity<ProblemDetail> handleUserException(UserException ex) {
+        ProblemDetail pm = ProblemDetail.forStatusAndDetail(ex.getStatus(), ex.getMessage());
+        return ResponseEntity.status(ex.getStatus()).body(pm);
     }
 
+    // validation exception
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
