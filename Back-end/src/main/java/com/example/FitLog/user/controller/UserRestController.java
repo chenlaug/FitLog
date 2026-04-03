@@ -3,25 +3,31 @@ package com.example.FitLog.user.controller;
 import com.example.FitLog.user.DTO.UserDTO;
 import com.example.FitLog.user.mapper.UserMapper;
 import com.example.FitLog.user.model.UserEntity;
-import com.example.FitLog.user.model.exception.UserCreationException;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import com.example.FitLog.user.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserRestController {
+
     private final UserService userService;
+
     public UserRestController(UserService userService) {
         this.userService = userService;
     }
 
-    @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@Valid @RequestBody UserDTO.PostInput input) throws UserCreationException {
-        UserEntity newUser = userService.createUser(input.getName(),input.getEmail(),input.getPassword());
-        UserDTO.PostOutput output = UserMapper.toPostOutput(newUser);
-        return output.toString();
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO.GetOutput> getMe() {
+        // Récupère l'UUID stocké dans le SecurityContext par le JwtAuthFilter
+        UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        UserEntity user = userService.findById(userId);
+        return ResponseEntity.ok(UserMapper.toGetOutput(user));
     }
 }

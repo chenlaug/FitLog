@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.example.FitLog.user.persistence.UserRepository;
 import com.example.FitLog.user.model.UserEntity;
 
+import java.util.UUID;
+
 @Slf4j
 @Service
 public class UserService {
@@ -28,5 +30,10 @@ public class UserService {
 
         userRepository.save(user);
         return  user;
+    }
+
+    public UserEntity findById(UUID id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
     }
 }
