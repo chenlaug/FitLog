@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -26,7 +27,7 @@ public class UserRestController {
     @GetMapping("/me")
     public ResponseEntity<UserDTO.GetOutput> getMe() {
         // Récupère l'UUID stocké dans le SecurityContext par le JwtAuthFilter
-        UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UUID userId = (UUID) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
 
         UserEntity user = userService.findById(userId);
         return ResponseEntity.ok(UserMapper.toGetOutput(user));
@@ -34,14 +35,14 @@ public class UserRestController {
 
     @DeleteMapping("")
     public ResponseEntity<String> deleteMe() {
-        UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UUID userId = (UUID) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
         userService.deleteById(userId);
         return ResponseEntity.ok("User successfully deleted");
     }
 
     @PatchMapping("")
     public ResponseEntity<UserDTO.PathOutput> updateUser(@Valid @RequestBody UserDTO.PatchInput input) {
-        UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UUID userId = (UUID) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
         UserEntity updated = userService.updateById(userId, input.getName(), input.getEmail());
         return ResponseEntity.ok(UserMapper.toPathOutput(updated));
     }
