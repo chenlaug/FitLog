@@ -22,6 +22,16 @@ public class UserService {
     }
 
     public UserEntity createUser(String name, String email, String password) {
+        if (userRepository.existsByEmail(email)) {
+            throw UserException.alreadyExists();
+        }
+        if (name == null || name.isBlank()) {
+            throw UserException.creationFailed("Name cannot be empty");
+        }
+        if (email == null || email.isBlank()) {
+            throw UserException.creationFailed("Email cannot be empty");
+        }
+
         UserEntity user = UserEntity.builder()
                 .name(name)
                 .email(email)
