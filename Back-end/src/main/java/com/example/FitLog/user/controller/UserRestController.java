@@ -35,5 +35,4 @@ public class UserRestController {
     public ResponseEntity<UserDTO.PathOutput> updateUser(@Valid @RequestBody UserDTO.PatchInput input) {
         return userService.updateById(input.getName(), input.getEmail());
     }
-
 }
