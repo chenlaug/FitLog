@@ -8,13 +8,13 @@ on:
     branches:
       - master
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   test:
     name: Run Unit & Integration Tests
     runs-on: ubuntu-latest
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout code
@@ -27,10 +27,6 @@ jobs:
           distribution: 'liberica'
           cache: 'maven'
 
-      - name: Make mvnw executable
-        run: chmod +x ./mvnw
-        working-directory: Back-end
-
       - name: Run tests
         working-directory: Back-end
-        run: ./mvnw test
+        run: mvn test
