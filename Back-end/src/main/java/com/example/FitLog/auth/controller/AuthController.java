@@ -1,9 +1,7 @@
 package com.example.FitLog.auth.controller;
 
 import com.example.FitLog.auth.DTO.AuthDTO;
-import com.example.FitLog.auth.mapper.AuthMapper;
 import com.example.FitLog.auth.service.AuthService;
-import com.example.FitLog.user.model.UserEntity;
 import com.example.FitLog.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
