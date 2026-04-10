@@ -26,24 +26,16 @@ public class UserRestController {
 
     @GetMapping("/me")
     public ResponseEntity<UserDTO.GetOutput> getMe() {
-        // Récupère l'UUID stocké dans le SecurityContext par le JwtAuthFilter
-        UUID userId = (UUID) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
-
-        UserEntity user = userService.findById(userId);
-        return ResponseEntity.ok(UserMapper.toGetOutput(user));
+        return userService.getMe();
     }
 
     @DeleteMapping("")
-    public ResponseEntity<String> deleteMe() {
-        UUID userId = (UUID) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
-        userService.deleteById(userId);
-        return ResponseEntity.ok("User successfully deleted");
+    public ResponseEntity<UserDTO.DeleteOutput> deleteMe() {
+        return userService.deleteById();
     }
 
     @PatchMapping("")
     public ResponseEntity<UserDTO.PathOutput> updateUser(@Valid @RequestBody UserDTO.PatchInput input) {
-        UUID userId = (UUID) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
-        UserEntity updated = userService.updateById(userId, input.getName(), input.getEmail());
-        return ResponseEntity.ok(UserMapper.toPathOutput(updated));
+        return userService.updateById(input.getName(), input.getEmail());
     }
 }

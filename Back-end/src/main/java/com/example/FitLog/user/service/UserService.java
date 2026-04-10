@@ -1,12 +1,17 @@
 package com.example.FitLog.user.service;
 
+import com.example.FitLog.user.DTO.UserDTO;
+import com.example.FitLog.user.mapper.UserMapper;
 import com.example.FitLog.user.model.exception.UserException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.FitLog.user.persistence.UserRepository;
 import com.example.FitLog.user.model.UserEntity;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -40,30 +45,45 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public ResponseEntity<UserDTO.GetOutput> getMe() {
+        UUID userId = getCurrentUserId();
+        if (userId == null) {
+            throw UserException.canGetIdFromToken();
+        }
+        UserEntity user = findById(userId);
+        return ResponseEntity.ok(UserMapper.getMeOutput(user));
+    }
+
+    public ResponseEntity<UserDTO.DeleteOutput> deleteById() {
+        UUID userId = getCurrentUserId();
+        if (!userRepository.existsById(userId)) {
+            throw UserException.notFound();
+        }
+        userRepository.deleteById(userId);
+        return ResponseEntity.ok(UserMapper.toDeleteOutput("User successfully deleted"));
+    }
+
+    public ResponseEntity<UserDTO.PathOutput> updateById(String name, String email) {
+        UUID userId = getCurrentUserId();
+        if (userId == null) {
+            throw UserException.canGetIdFromToken();
+        }
+
+        UserEntity user = findById(userId);
+        user.setName(name != null ? name : user.getName());
+        user.setEmail(email != null ? email: user.getEmail());
+        userRepository.save(user);
+        return ResponseEntity.ok(UserMapper.toPathOutput(user));
+    }
+
+
+    // method to get current user id from security context
+    public UUID getCurrentUserId() {
+        return (UUID) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
+    }
+
+    // method to find user by id or throw not found exception
     public UserEntity findById(UUID id) {
-        return userRepository.findById(id)
-                .orElseThrow(UserException::notFound);
-    }
-
-    public void deleteById(UUID id) {
-        if (!userRepository.existsById(id)) {
-            throw UserException.notFound();
-        }
-        userRepository.deleteById(id);
-    }
-
-    public UserEntity updateById(UUID id, String name, String email) {
-        UserEntity user = findById(id);
-        if (user == null) {
-            throw UserException.notFound();
-        }
-
-        UserEntity updated = UserEntity.builder()
-                .uuid(user.getUuid())
-                .name(name != null ? name : user.getName())
-                .email(email != null ? email : user.getEmail())
-                .password(user.getPassword())
-                .build();
-        return userRepository.save(updated);
+        return userRepository.findById(id).orElseThrow(UserException::notFound);
     }
 }

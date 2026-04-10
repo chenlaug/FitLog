@@ -24,4 +24,8 @@ public class UserException extends RuntimeException {
     public static UserException creationFailed(String reason) {
         return new UserException(HttpStatus.BAD_REQUEST, "User creation failed: " + reason);
     }
+
+    public static  UserException canGetIdFromToken() {
+        return new UserException(HttpStatus.UNAUTHORIZED, "Cannot get user ID from token");
+    }
 }

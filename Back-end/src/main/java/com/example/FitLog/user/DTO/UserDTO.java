@@ -1,5 +1,6 @@
 package com.example.FitLog.user.DTO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.Data;
 import java.util.UUID;
 
 public class UserDTO {
+
     @Data
     @AllArgsConstructor
     @Builder
@@ -32,5 +34,13 @@ public class UserDTO {
         UUID id;
         String name;
         String email;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class DeleteOutput
+    {
+        String message;
     }
 }
