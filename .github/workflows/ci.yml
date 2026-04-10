@@ -8,6 +8,9 @@ on:
     branches:
       - master
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   test:
     name: Run Unit & Integration Tests
@@ -23,6 +26,10 @@ jobs:
           java-version: '25'
           distribution: 'liberica'
           cache: 'maven'
+
+      - name: Make mvnw executable
+        run: chmod +x ./mvnw
+        working-directory: Back-end
 
       - name: Run tests
         working-directory: Back-end
