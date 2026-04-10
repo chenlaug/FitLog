@@ -1,5 +1,7 @@
 package com.example.FitLog.user.service;
 
+import com.example.FitLog.auth.DTO.AuthDTO;
+import com.example.FitLog.auth.mapper.AuthMapper;
 import com.example.FitLog.user.DTO.UserDTO;
 import com.example.FitLog.user.mapper.UserMapper;
 import com.example.FitLog.user.model.exception.UserException;
@@ -26,7 +28,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserEntity createUser(String name, String email, String password) {
+    public ResponseEntity<AuthDTO.RegisterOutput> createUser(String name, String email, String password) {
         if (userRepository.existsByEmail(email)) {
             throw UserException.alreadyExists();
         }
@@ -42,7 +44,8 @@ public class UserService {
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .build();
-        return userRepository.save(user);
+        userRepository.save(user);
+        return ResponseEntity.ok(AuthMapper.toRegisterOutput(user));
     }
 
     public ResponseEntity<UserDTO.GetOutput> getMe() {

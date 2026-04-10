@@ -23,12 +23,11 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthDTO.RegisterOutput> register(@Valid @RequestBody AuthDTO.RegisterInput input) {
-        UserEntity newUser = userService.createUser(input.getName(), input.getEmail(), input.getPassword());
-        return ResponseEntity.ok(AuthMapper.toRegisterOutput(newUser));
+        return userService.createUser(input.getName(), input.getEmail(), input.getPassword());
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthDTO.LoginOutput> login(@Valid @RequestBody AuthDTO.LoginInput input) {
-        return ResponseEntity.ok(authService.login(input));
+        return authService.login(input.getEmail(), input.getPassword());
     }
 }

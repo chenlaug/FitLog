@@ -11,4 +11,10 @@ public class AuthMapper {
                .name(user.getName())
                .build();
     }
+
+    public static AuthDTO.LoginOutput toLoginOutput(String token) {
+        return AuthDTO.LoginOutput.builder()
+                .token(token)
+                .build();
+    }
 }
