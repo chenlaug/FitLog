@@ -1,10 +1,7 @@
 package com.example.FitLog.user.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -12,6 +9,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Getter
+@Setter
 @Entity
 @Table(name = "app_user")
 public class UserEntity {
