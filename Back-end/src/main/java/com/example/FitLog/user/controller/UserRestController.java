@@ -1,17 +1,14 @@
 package com.example.FitLog.user.controller;
 
 import com.example.FitLog.user.DTO.UserDTO;
-import com.example.FitLog.user.mapper.UserMapper;
-import com.example.FitLog.user.model.UserEntity;
+
 import com.example.FitLog.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
-import java.util.UUID;
+
 
 @Slf4j
 @RestController
