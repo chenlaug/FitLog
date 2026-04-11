@@ -1,5 +1,7 @@
 package com.example.FitLog.user.DTO;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,16 +13,19 @@ public class UserDTO {
     @Data
     @AllArgsConstructor
     @Builder
-    public static class GetOutput
-    {
-        UUID id;
+    public static class PatchInput {
+        @NotBlank
         String name;
+        @NotBlank @Email
         String email;
     }
+
     @Data
     @AllArgsConstructor
     @Builder
-    public static class PatchInput {
+    public static class GetOutput
+    {
+        UUID id;
         String name;
         String email;
     }
