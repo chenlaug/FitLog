@@ -9,7 +9,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 		"com.example.FitLog.workout.model",
 		"com.example.FitLog.exercise.model"}
 )
-@EnableJpaRepositories(basePackages = {"com.example.FitLog.user.persistence"})
+@EnableJpaRepositories(basePackages = {
+		"com.example.FitLog.user.persistence",
+		"com.example.FitLog.exercise.persistence",
+		"com.example.FitLog.workout.persistence"
+})
 
 @SpringBootApplication(scanBasePackages= {
 		"com.example.FitLog","com.example.FitLog"
