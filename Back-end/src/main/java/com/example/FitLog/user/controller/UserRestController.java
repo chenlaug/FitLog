@@ -4,13 +4,11 @@ import com.example.FitLog.user.DTO.UserDTO;
 
 import com.example.FitLog.user.service.UserService;
 import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 
-@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserRestController {
