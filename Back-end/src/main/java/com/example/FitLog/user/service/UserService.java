@@ -5,7 +5,6 @@ import com.example.FitLog.auth.mapper.AuthMapper;
 import com.example.FitLog.user.DTO.UserDTO;
 import com.example.FitLog.user.mapper.UserMapper;
 import com.example.FitLog.user.model.exception.UserException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +15,6 @@ import com.example.FitLog.user.model.UserEntity;
 import java.util.Objects;
 import java.util.UUID;
 
-@Slf4j
 @Service
 public class UserService {
 
