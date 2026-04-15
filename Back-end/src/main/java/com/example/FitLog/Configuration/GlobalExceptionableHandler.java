@@ -1,6 +1,8 @@
 package com.example.FitLog.Configuration;
 
+import com.example.FitLog.exercise.model.exception.ExerciseException;
 import com.example.FitLog.user.model.exception.UserException;
+import com.example.FitLog.workout.model.exception.WorkoutException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -30,6 +32,20 @@ public class GlobalExceptionableHandler {
     // User exception — gère tous les cas via le statut intégré dans UserException
     @ExceptionHandler(UserException.class)
     public ResponseEntity<ProblemDetail> handleUserException(UserException ex) {
+        ProblemDetail pm = ProblemDetail.forStatusAndDetail(ex.getStatus(), ex.getMessage());
+        return ResponseEntity.status(ex.getStatus()).body(pm);
+    }
+
+    // Exercise exception — gère tous les cas via le statut intégré dans ExerciseException
+    @ExceptionHandler(ExerciseException.class)
+    public ResponseEntity<ProblemDetail> handleExerciseException(ExerciseException ex) {
+        ProblemDetail pm = ProblemDetail.forStatusAndDetail(ex.getStatus(), ex.getMessage());
+        return ResponseEntity.status(ex.getStatus()).body(pm);
+    }
+
+    // Workout exception — gère tous les cas via le statut intégré dans WorkoutException
+    @ExceptionHandler(WorkoutException.class)
+    public ResponseEntity<ProblemDetail> handleWorkoutException(WorkoutException ex) {
         ProblemDetail pm = ProblemDetail.forStatusAndDetail(ex.getStatus(), ex.getMessage());
         return ResponseEntity.status(ex.getStatus()).body(pm);
     }

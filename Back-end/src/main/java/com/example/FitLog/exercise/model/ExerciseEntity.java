@@ -15,8 +15,6 @@ import java.util.UUID;
 public class ExerciseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID uuid;
+    UUID id;
     String name;
-    int weight;
-    int kg;
 }

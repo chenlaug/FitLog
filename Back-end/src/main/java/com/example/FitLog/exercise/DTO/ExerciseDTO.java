@@ -1,6 +1,5 @@
-package com.example.FitLog.user.DTO;
+package com.example.FitLog.exercise.DTO;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,43 +7,51 @@ import lombok.Data;
 
 import java.util.UUID;
 
-public class UserDTO {
+public class ExerciseDTO {
+
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class PostInput {
+        @NotBlank
+        String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class PostOutput {
+        UUID id;
+        String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class DeleteOutput {
+        String message;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class GetOutput {
+        UUID id;
+        String name;
+    }
 
     @Data
     @AllArgsConstructor
     @Builder
     public static class PatchInput {
-        @NotBlank
         String name;
-        @NotBlank @Email
-        String email;
     }
 
     @Data
     @AllArgsConstructor
     @Builder
-    public static class GetOutput
-    {
+    public static class PatchOutput {
         UUID id;
         String name;
-        String email;
-    }
-
-    @Data
-    @AllArgsConstructor
-    @Builder
-    public static class PathOutput
-    {
-        UUID id;
-        String name;
-        String email;
-    }
-
-    @Data
-    @AllArgsConstructor
-    @Builder
-    public static class DeleteOutput
-    {
-        String message;
     }
 }
