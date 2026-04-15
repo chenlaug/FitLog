@@ -5,7 +5,6 @@ import com.example.FitLog.auth.mapper.AuthMapper;
 import com.example.FitLog.user.DTO.UserDTO;
 import com.example.FitLog.user.mapper.UserMapper;
 import com.example.FitLog.user.model.exception.UserException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +15,6 @@ import com.example.FitLog.user.model.UserEntity;
 import java.util.Objects;
 import java.util.UUID;
 
-@Slf4j
 @Service
 public class UserService {
 
@@ -81,12 +79,12 @@ public class UserService {
 
 
     // method to get current user id from security context
-    public UUID getCurrentUserId() {
+    private UUID getCurrentUserId() {
         return (UUID) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
     }
 
     // method to find user by id or throw not found exception
-    public UserEntity findById(UUID id) {
+    private UserEntity findById(UUID id) {
         return userRepository.findById(id).orElseThrow(UserException::notFound);
     }
 }
