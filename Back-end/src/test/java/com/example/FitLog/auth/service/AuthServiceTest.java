@@ -46,7 +46,7 @@ class AuthServiceTest {
     void setUp() {
         userId = UUID.randomUUID();
         userEntity = UserEntity.builder()
-                .uuid(userId)
+                .id(userId)
                 .name("John")
                 .email("john@example.com")
                 .password("encodedPassword")
