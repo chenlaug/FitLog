@@ -1,6 +1,5 @@
 package com.example.FitLog.workout.model;
 
-import com.example.FitLog.exercise.model.ExerciseEntity;
 import com.example.FitLog.user.model.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,20 +18,15 @@ import java.util.UUID;
 public class WorkoutEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID uuid;
+    UUID id;
     String name;
     String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "workout_exercises",
-            joinColumns = @JoinColumn(name = "workout_id"),
-            inverseJoinColumns = @JoinColumn(name = "exercise_id")
-    )
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<ExerciseEntity> exercises = new ArrayList<>();
+    private List<WorkoutExerciseEntity> exercises = new ArrayList<>();
 }
