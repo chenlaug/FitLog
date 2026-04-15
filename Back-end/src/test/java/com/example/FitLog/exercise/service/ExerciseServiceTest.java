@@ -129,7 +129,7 @@ class ExerciseServiceTest {
         assertThat(response.getStatusCode().value()).isEqualTo(200);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).hasSize(1);
-        assertThat(response.getBody().getContent().get(0).getName()).isEqualTo("Bench Press");
+        assertThat(response.getBody().getContent().getFirst().getName()).isEqualTo("Bench Press");
     }
 
     // ---- updateExercise ----

@@ -208,8 +208,8 @@ class WorkoutServiceTest {
         assertThat(output).isNotNull();
         assertThat(output.getExerciseName()).isEqualTo("Bench Press");
         assertThat(output.getSets()).hasSize(2);
-        assertThat(output.getSets().get(0).getRepetition()).isEqualTo(10);
-        assertThat(output.getSets().get(0).getKg()).isEqualTo(80);
+        assertThat(output.getSets().getFirst().getRepetition()).isEqualTo(10);
+        assertThat(output.getSets().getFirst().getKg()).isEqualTo(80);
         verify(workoutExerciseRepository).save(any(WorkoutExerciseEntity.class));
     }
 
