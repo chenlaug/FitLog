@@ -35,7 +35,7 @@ public class AuthService {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(UserException::notFound);
 
-        String token = jwtUtil.generateToken(user.getUuid(), user.getEmail());
+        String token = jwtUtil.generateToken(user.getId(), user.getEmail());
 
         return ResponseEntity.ok(AuthMapper.toLoginOutput(token));
     }

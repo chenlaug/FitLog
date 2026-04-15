@@ -79,12 +79,12 @@ public class UserService {
 
 
     // method to get current user id from security context
-    public UUID getCurrentUserId() {
+    private UUID getCurrentUserId() {
         return (UUID) Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
     }
 
     // method to find user by id or throw not found exception
-    public UserEntity findById(UUID id) {
+    private UserEntity findById(UUID id) {
         return userRepository.findById(id).orElseThrow(UserException::notFound);
     }
 }

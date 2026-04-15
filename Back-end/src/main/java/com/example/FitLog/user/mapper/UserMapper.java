@@ -7,7 +7,7 @@ public class UserMapper {
 
     public static UserDTO.GetOutput getMeOutput(UserEntity user) {
         return UserDTO.GetOutput.builder()
-                .id(user.getUuid())
+                .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
                 .build();
@@ -15,7 +15,7 @@ public class UserMapper {
 
     public static UserDTO.PathOutput toPathOutput(UserEntity user) {
         return UserDTO.PathOutput.builder()
-                .id(user.getUuid())
+                .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
                 .build();
