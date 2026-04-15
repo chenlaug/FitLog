@@ -84,6 +84,26 @@ The API is available at `http://localhost:3000`
 | `PATCH` | `/user` | Update name or email | Yes |
 | `DELETE` | `/user` | Delete current account | Yes |
 
+### Exercise
+
+| Method | Endpoint | Description | Auth required |
+|---|---|---|---|
+| `POST` | `/exercise` | Create an exercise | No |
+| `GET` | `/exercise/{id}` | Get an exercise by id | No |
+| `GET` | `/exercise/all` | Get all exercises (paginated) | No |
+| `PATCH` | `/exercise/{id}` | Update an exercise name | No |
+| `DELETE` | `/exercise/{id}` | Delete an exercise | No |
+
+### Workout
+
+| Method | Endpoint | Description | Auth required |
+|---|---|---|---|
+| `POST` | `/workout` | Create a workout | Yes |
+| `GET` | `/workout/{id}` | Get a workout with its exercises and sets | Yes |
+| `DELETE` | `/workout/{id}` | Delete a workout | Yes |
+| `POST` | `/workout/{workoutId}/exercise` | Add an exercise with sets to a workout | Yes |
+| `DELETE` | `/workout/{workoutId}/exercise/{weId}` | Remove an exercise from a workout | Yes |
+
 > For protected endpoints, add the token in the request header:
 > `Authorization: Bearer <token>`
 
@@ -129,6 +149,8 @@ FitLog/
 │   │   │   ├── java/com/example/FitLog/
 │   │   │   │   ├── auth/           # Login & register
 │   │   │   │   ├── user/           # User CRUD
+│   │   │   │   ├── exercise/       # Exercise catalogue
+│   │   │   │   ├── workout/        # Workouts, exercises and sets
 │   │   │   │   └── Configuration/  # Security, JWT, exception handler
 │   │   │   └── resources/
 │   │   │       ├── db/migration/   # Flyway SQL migrations
